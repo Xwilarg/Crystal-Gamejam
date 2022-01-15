@@ -36,6 +36,14 @@ public class Artillery : MonoBehaviour
         _audio = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsAlive)
+        {
+            Application.Quit();
+        }
+    }
+
     public void AddStep()
     {
         if (_index < _steps.Length)
