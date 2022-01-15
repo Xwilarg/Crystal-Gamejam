@@ -16,7 +16,7 @@ public class Artillery : MonoBehaviour
     private GameObject _dropShellObj, _dropShellParent;
 
     [SerializeField]
-    private Image _bloodCover;
+    private FadeOut _bloodCover;
 
     [SerializeField]
     private TMP_Text _gameOver;
@@ -57,10 +57,10 @@ public class Artillery : MonoBehaviour
     public void TakeDamage()
     {
         _indexDamage++;
-        if (_indexDamage < 3)
+        if (_indexDamage <= 3)
         {
             var color = _indexDamage / 3f;
-            _bloodCover.color = new Color(_bloodCover.color.r, _bloodCover.color.g, _bloodCover.color.b, color);
+            _bloodCover.TakeFade(color);
             _audio.Play();
             if (_indexDamage == 3)
             {

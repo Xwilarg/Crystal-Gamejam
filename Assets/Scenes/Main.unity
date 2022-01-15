@@ -8193,6 +8193,7 @@ GameObject:
   - component: {fileID: 1540518335}
   - component: {fileID: 1540518337}
   - component: {fileID: 1540518336}
+  - component: {fileID: 1540518338}
   m_Layer: 5
   m_Name: BloodCover
   m_TagString: Untagged
@@ -8258,6 +8259,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540518334}
   m_CullTransparentMesh: 1
+--- !u!114 &1540518338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540518334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a59a867129cdc43919311a97d84868, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1590700254
 GameObject:
   m_ObjectHideFlags: 0
@@ -8520,7 +8533,7 @@ MonoBehaviour:
   _shell: {fileID: 6767635502079704135, guid: f5f2bdbe34b133840a5519ecb1a3749e, type: 3}
   _dropShellObj: {fileID: 2206957837748595473, guid: d363a970ad128a941a721d783f0f997b, type: 3}
   _dropShellParent: {fileID: 8257565}
-  _bloodCover: {fileID: 1540518336}
+  _bloodCover: {fileID: 1540518338}
   _gameOver: {fileID: 1276843085}
 --- !u!82 &1964129952
 AudioSource:

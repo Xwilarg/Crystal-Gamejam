@@ -48,6 +48,10 @@ public class ChickenSpawner : MonoBehaviour
             else
             {
                 _timer = _repeatRate;
+                if (_repeatRate > 1f)
+                {
+                    _repeatRate -= .1f;
+                }
             }
         }
     }
