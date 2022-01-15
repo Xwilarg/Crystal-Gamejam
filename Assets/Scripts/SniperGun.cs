@@ -4,6 +4,9 @@ using UnityEngine.UI;
 public class SniperGun : MonoBehaviour
 {
     [SerializeField]
+    private AudioClip _shoot, _bip;
+
+    [SerializeField]
     private Image[] _ammoSprites;
     private int _indexAmmo;
 
@@ -23,6 +26,8 @@ public class SniperGun : MonoBehaviour
 
     private AudioSource _audio;
 
+    bool _toldReady = true;
+
     private void Start()
     {
         Cursor.visible = false;
@@ -33,18 +38,27 @@ public class SniperGun : MonoBehaviour
     private void Update()
     {
         _canShoot -= Time.deltaTime;
-        if (_canShoot < 0f && _indexAmmo == 0 && !_ammoSprites[0].gameObject.activeInHierarchy) // Reload done
+        if (_canShoot < 0f)
         {
-            foreach (var sp in _ammoSprites)
+            if (!_toldReady)
             {
-                sp.gameObject.SetActive(true);
+                _audio.clip = _bip;
+                _audio.Play();
+                _toldReady = true;
+            }
+            if (_indexAmmo == 0 && !_ammoSprites[0].gameObject.activeInHierarchy) // Reload done
+            {
+                foreach (var sp in _ammoSprites)
+                {
+                    sp.gameObject.SetActive(true);
+                }
             }
         }
         transform.position = Input.mousePosition;
 
         if (Input.GetMouseButtonDown(0) && _canShoot < 0f)
         {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 worldPosition = _cam.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(worldPosition.x, worldPosition.y), Vector2.zero, 0);
             if (hit)
             {
@@ -68,7 +82,9 @@ public class SniperGun : MonoBehaviour
                     }
                 }
             }
+            _audio.clip = _shoot;
             _audio.Play();
+            _toldReady = false;
             _ammoSprites[_indexAmmo].gameObject.SetActive(false);
             _indexAmmo++;
             if (_indexAmmo == _ammoSprites.Length)
