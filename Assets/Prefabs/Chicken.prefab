@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5345432834335570443}
   - component: {fileID: 5345432834335570442}
   - component: {fileID: 5345432834335570445}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Chicken
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb153171b0cf1847ae0976ee6f631f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deadSprite: {fileID: 21300000, guid: b3cb73c749e736b44ad640034764858c, type: 3}
 --- !u!50 &5345432834335570442
 Rigidbody2D:
   serializedVersion: 4

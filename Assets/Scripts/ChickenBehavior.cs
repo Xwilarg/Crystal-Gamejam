@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class ChickenBehavior : MonoBehaviour
 {
+    [SerializeField]
+    private Sprite _deadSprite;
+
     private float _dirTimer;
     private Vector2 _dir;
     private Rigidbody2D _rb;
@@ -10,6 +13,8 @@ public class ChickenBehavior : MonoBehaviour
 
     private Vector2 _initPos;
     private float _maxDistFromInitPos = 1f;
+
+    private bool _isDead;
 
     private void Start()
     {
@@ -20,6 +25,10 @@ public class ChickenBehavior : MonoBehaviour
 
     private void Update()
     {
+        if (_isDead) // Dead chickens don't move
+        {
+            return;
+        }
         _dirTimer -= Time.deltaTime;
         if (_dirTimer <= 0f)
         {
@@ -39,5 +48,13 @@ public class ChickenBehavior : MonoBehaviour
         _rb.velocity = _dir * Time.deltaTime * _speed;
         _sr.flipX = _rb.velocity.x < 0f;
         Debug.DrawLine(_initPos, transform.position, Color.red);
+    }
+
+    public void Die()
+    {
+        _isDead = true;
+        _rb.isKinematic = true;
+        _rb.velocity = Vector2.zero;
+        _sr.sprite = _deadSprite;
     }
 }
