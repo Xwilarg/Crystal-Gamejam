@@ -10,7 +10,7 @@ public class ChickenBehavior : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
     private float _minSpeed = 15f, _maxSpeed = 20f;
-    private float _speed = _maxSpeed;
+    private float _speed = 20f;
 
     private Vector2 _initPos;
     private float _maxDistFromInitPos = 1f;

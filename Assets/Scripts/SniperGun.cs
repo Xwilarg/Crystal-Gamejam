@@ -1,7 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SniperGun : MonoBehaviour
 {
+    [SerializeField]
+    private Image[] _ammoSprites;
+    private int _indexAmmo;
+
     private Camera _cam;
     private float _canShoot;
 
@@ -17,6 +22,13 @@ public class SniperGun : MonoBehaviour
     private void Update()
     {
         _canShoot -= Time.deltaTime;
+        if (_canShoot < 0f && _indexAmmo == 0 && !_ammoSprites[0].gameObject.activeInHierarchy) // Reload done
+        {
+            foreach (var sp in _ammoSprites)
+            {
+                sp.gameObject.SetActive(true);
+            }
+        }
         transform.position = Input.mousePosition;
 
         if (Input.GetMouseButtonDown(0) && _canShoot < 0f)
@@ -32,8 +44,18 @@ public class SniperGun : MonoBehaviour
                     chicken.Die();
                 }
             }
-            _canShoot = 1f;
             _audio.Play();
+            _ammoSprites[_indexAmmo].gameObject.SetActive(false);
+            _indexAmmo++;
+            if (_indexAmmo == _ammoSprites.Length)
+            {
+                _indexAmmo = 0;
+                _canShoot = 3f;
+            }
+            else
+            {
+                _canShoot = 1f;
+            }
         }
     }
 }
