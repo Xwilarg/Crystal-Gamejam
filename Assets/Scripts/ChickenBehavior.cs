@@ -38,5 +38,6 @@ public class ChickenBehavior : MonoBehaviour
 
         _rb.velocity = _dir * Time.deltaTime * _speed;
         _sr.flipX = _rb.velocity.x < 0f;
+        Debug.DrawLine(_initPos, transform.position, Color.red);
     }
 }
