@@ -8,10 +8,14 @@ public class ChickenBehavior : MonoBehaviour
     private SpriteRenderer _sr;
     private float _speed = 20f;
 
+    private Vector2 _initPos;
+    private float _maxDistFromInitPos = 1f;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _initPos = transform.position;
     }
 
     private void Update()
@@ -19,8 +23,17 @@ public class ChickenBehavior : MonoBehaviour
         _dirTimer -= Time.deltaTime;
         if (_dirTimer <= 0f)
         {
-            _dir = Random.insideUnitCircle.normalized;
             _dirTimer = Random.Range(1f, 3f);
+
+            if (Vector2.Distance(transform.position, _initPos) > _maxDistFromInitPos) // Chicken going too far away
+            {
+                _dir = _initPos - (Vector2)transform.position;
+            }
+            else
+            {
+                _dir = Random.insideUnitCircle;
+            }
+            _dir.Normalize();
         }
 
         _rb.velocity = _dir * Time.deltaTime * _speed;
