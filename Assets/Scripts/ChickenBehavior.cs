@@ -9,7 +9,8 @@ public class ChickenBehavior : MonoBehaviour
     private Vector2 _dir;
     private Rigidbody2D _rb;
     private SpriteRenderer _sr;
-    private float _speed = 20f;
+    private float _minSpeed = 15f, _maxSpeed = 20f;
+    private float _speed = _maxSpeed;
 
     private Vector2 _initPos;
     private float _maxDistFromInitPos = 1f;
@@ -45,6 +46,7 @@ public class ChickenBehavior : MonoBehaviour
             _dir.Normalize();
         }
 
+        _speed = Random.Range(_minSpeed, _maxSpeed);
         _rb.velocity = _dir * Time.deltaTime * _speed;
         _sr.flipX = _rb.velocity.x < 0f;
         Debug.DrawLine(_initPos, transform.position, Color.red);
