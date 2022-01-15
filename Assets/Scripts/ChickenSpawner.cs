@@ -26,7 +26,7 @@ public class ChickenSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!_enabled)
+        if (!_enabled || !Artillery.S.IsAlive)
         {
             return;
         }

@@ -80,7 +80,7 @@ public class ChickenBehavior : MonoBehaviour
         _spe = true;
         _box.SetActive(true);
         gameObject.layer = 7;
-        _speed = 40f;
+        _speed = 45f;
     }
 
     public void DisableSpe()
