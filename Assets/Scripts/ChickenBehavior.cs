@@ -49,6 +49,9 @@ public class ChickenBehavior : MonoBehaviour
         _speed = Random.Range(_minSpeed, _maxSpeed);
         _rb.velocity = _dir * Time.deltaTime * _speed;
         _sr.flipX = _rb.velocity.x < 0f;
+
+        _sr.sortingOrder = -(int)(transform.position.y * 1000f);
+
         Debug.DrawLine(_initPos, transform.position, Color.red);
     }
 
