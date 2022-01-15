@@ -11,11 +11,40 @@ public class ChickenSpawner : MonoBehaviour
     [SerializeField]
     private int _count;
 
-    private void Start()
+    [SerializeField]
+    private bool _enabled, _repeat;
+
+    [SerializeField]
+    private float _repeatRate;
+
+    private float _timer;
+
+    public void EnableSpawn()
     {
-        for (int i = 0; i < _count; i++)
+        _enabled = true;
+    }
+
+    private void Update()
+    {
+        if (!_enabled)
         {
-            Instantiate(_prefab, new Vector2(Random.Range(-_xBound, _xBound), Random.Range(-_yBound, _yBound)), Quaternion.identity);
+            return;
+        }
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f)
+        {
+            for (int i = 0; i < _count; i++)
+            {
+                Instantiate(_prefab, new Vector2(Random.Range(-_xBound, _xBound), Random.Range(-_yBound, _yBound)), Quaternion.identity);
+            }
+            if (!_repeat)
+            {
+                _enabled = false;
+            }
+            else
+            {
+                _timer = _repeatRate;
+            }
         }
     }
 }

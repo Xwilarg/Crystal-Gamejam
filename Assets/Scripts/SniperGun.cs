@@ -7,6 +7,17 @@ public class SniperGun : MonoBehaviour
     private Image[] _ammoSprites;
     private int _indexAmmo;
 
+    [SerializeField]
+    private Transform _parentKillCount;
+
+    [SerializeField]
+    private GameObject _killCountPrefab;
+    private GameObject _current;
+
+    [SerializeField]
+    private Sprite[] _killCount;
+    private int _killCountIndex = -1, _killCountOffset;
+
     private Camera _cam;
     private float _canShoot;
 
@@ -39,9 +50,22 @@ public class SniperGun : MonoBehaviour
             {
                 Debug.Log($"Hit {hit.collider.name}");
                 var chicken = hit.collider.GetComponent<ChickenBehavior>();
-                if (chicken != null)
+                if (chicken != null && !chicken.IsDead)
                 {
                     chicken.Die();
+                    if (_killCountIndex == -1)
+                    {
+                        _current = Instantiate(_killCountPrefab, _parentKillCount);
+                        _current.transform.position = new Vector2(_current.transform.position.x + 64f * _killCountOffset, _current.transform.position.y);
+                        _killCountIndex++;
+                    }
+                    _current.GetComponent<Image>().sprite = _killCount[_killCountIndex];
+                    _killCountIndex++;
+                    if (_killCountIndex == _killCount.Length)
+                    {
+                        _killCountIndex = -1;
+                        _killCountOffset += 1;
+                    }
                 }
             }
             _audio.Play();
