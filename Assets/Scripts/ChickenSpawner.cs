@@ -12,7 +12,7 @@ public class ChickenSpawner : MonoBehaviour
     private int _count;
 
     [SerializeField]
-    private bool _enabled, _repeat;
+    private bool _enabled, _repeat, _spe;
 
     [SerializeField]
     private float _repeatRate;
@@ -35,7 +35,11 @@ public class ChickenSpawner : MonoBehaviour
         {
             for (int i = 0; i < _count; i++)
             {
-                Instantiate(_prefab, new Vector2(Random.Range(-_xBound, _xBound), Random.Range(-_yBound, _yBound)), Quaternion.identity);
+                var go = Instantiate(_prefab, (Vector2)transform.position + new Vector2(Random.Range(-_xBound, _xBound), Random.Range(-_yBound, _yBound)), Quaternion.identity);
+                if (_spe)
+                {
+                    go.GetComponent<ChickenBehavior>().EnableSpe();
+                }
             }
             if (!_repeat)
             {

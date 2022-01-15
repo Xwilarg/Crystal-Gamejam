@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deadSprite: {fileID: 21300000, guid: b3cb73c749e736b44ad640034764858c, type: 3}
+  _box: {fileID: 5233947534013283232}
 --- !u!50 &5345432834335570442
 Rigidbody2D:
   serializedVersion: 4

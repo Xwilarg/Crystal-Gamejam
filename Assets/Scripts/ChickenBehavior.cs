@@ -5,6 +5,9 @@ public class ChickenBehavior : MonoBehaviour
     [SerializeField]
     private Sprite _deadSprite;
 
+    [SerializeField]
+    private GameObject _box;
+
     private float _dirTimer;
     private Vector2 _dir;
     private Rigidbody2D _rb;
@@ -18,6 +21,7 @@ public class ChickenBehavior : MonoBehaviour
     private ParticleSystem _particles;
 
     private bool _isDead;
+    private bool _spe;
 
     public bool IsDead => _isDead;
 
@@ -40,24 +44,50 @@ public class ChickenBehavior : MonoBehaviour
         {
             _dirTimer = Random.Range(1f, 3f);
 
-            if (Vector2.Distance(transform.position, _initPos) > _maxDistFromInitPos) // Chicken going too far away
+            if (_spe)
+            {
+                _dir = -_initPos;
+            }
+            else if (Vector2.Distance(transform.position, _initPos) > _maxDistFromInitPos) // Chicken going too far away
             {
                 _dir = _initPos - (Vector2)transform.position;
+                _speed = Random.Range(_minSpeed, _maxSpeed);
             }
             else
             {
                 _dir = Random.insideUnitCircle;
+                _speed = Random.Range(_minSpeed, _maxSpeed);
             }
             _dir.Normalize();
         }
 
-        _speed = Random.Range(_minSpeed, _maxSpeed);
         _rb.velocity = _dir * Time.deltaTime * _speed;
-        _sr.flipX = _rb.velocity.x < 0f;
+        transform.localScale = new Vector3(_rb.velocity.x < 0f ? -1f : 1f, 1f, 1f);
 
         _sr.sortingOrder = -(int)(transform.position.y * 1000f);
 
+        if (_spe && Vector2.Distance(Vector2.zero, transform.position) < .1f)
+        {
+            Artillery.S.AddStep();
+            DisableSpe();
+        }
+
         Debug.DrawLine(_initPos, transform.position, Color.red);
+    }
+
+    public void EnableSpe()
+    {
+        _spe = true;
+        _box.SetActive(true);
+        gameObject.layer = 7;
+        _speed = 40f;
+    }
+
+    public void DisableSpe()
+    {
+        _spe = false;
+        _box.SetActive(false);
+        gameObject.layer = 6;
     }
 
     public void Die()
@@ -66,6 +96,7 @@ public class ChickenBehavior : MonoBehaviour
         _rb.isKinematic = true;
         _rb.velocity = Vector2.zero;
         _sr.sprite = _deadSprite;
+        _box.SetActive(false);
         //_particles.Play();
     }
 }

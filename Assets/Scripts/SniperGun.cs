@@ -72,7 +72,7 @@ public class SniperGun : MonoBehaviour
                 {
                     chicken.Die();
                     _kill++;
-                    if (_kill == 5)
+                    if (_kill == 1)
                     {
                         foreach (var s in _addSpawners)
                         {
