@@ -4,6 +4,9 @@ using UnityEngine.UI;
 public class SniperGun : MonoBehaviour
 {
     [SerializeField]
+    private ChickenSpawner[] _addSpawners;
+
+    [SerializeField]
     private AudioClip _shoot, _bip;
 
     [SerializeField]
@@ -27,6 +30,8 @@ public class SniperGun : MonoBehaviour
     private AudioSource _audio;
 
     bool _toldReady = true;
+
+    private int _kill;
 
     private void Start()
     {
@@ -62,11 +67,18 @@ public class SniperGun : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(worldPosition.x, worldPosition.y), Vector2.zero, 0);
             if (hit)
             {
-                Debug.Log($"Hit {hit.collider.name}");
                 var chicken = hit.collider.GetComponent<ChickenBehavior>();
                 if (chicken != null && !chicken.IsDead)
                 {
                     chicken.Die();
+                    _kill++;
+                    if (_kill == 5)
+                    {
+                        foreach (var s in _addSpawners)
+                        {
+                            s.EnableSpawn();
+                        }
+                    }
                     if (_killCountIndex == -1)
                     {
                         _current = Instantiate(_killCountPrefab, _parentKillCount);

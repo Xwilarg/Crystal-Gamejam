@@ -15,6 +15,8 @@ public class ChickenBehavior : MonoBehaviour
     private Vector2 _initPos;
     private float _maxDistFromInitPos = 1f;
 
+    private ParticleSystem _particles;
+
     private bool _isDead;
 
     public bool IsDead => _isDead;
@@ -23,6 +25,7 @@ public class ChickenBehavior : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
+        _particles = GetComponentInChildren<ParticleSystem>();
         _initPos = transform.position;
     }
 
@@ -63,5 +66,6 @@ public class ChickenBehavior : MonoBehaviour
         _rb.isKinematic = true;
         _rb.velocity = Vector2.zero;
         _sr.sprite = _deadSprite;
+        //_particles.Play();
     }
 }

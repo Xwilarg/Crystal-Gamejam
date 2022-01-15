@@ -864,6 +864,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb85ce06b3551d64a9c5188a042cd193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _addSpawners: []
+  _shoot: {fileID: 8300000, guid: dccf41cbfc340e548824fed59c39df1b, type: 3}
+  _bip: {fileID: 8300000, guid: 0a91113c601ee384a938fbedfe30f707, type: 3}
   _ammoSprites:
   - {fileID: 1971247320}
   - {fileID: 192023407}
